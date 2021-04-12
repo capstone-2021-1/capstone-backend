@@ -49,13 +49,22 @@ public class UserProvider {
         }
     }
 
-    public int checkPhoneNumber(String phoneNumber) throws BaseException{
+//    public int checkPhoneNumber(String phoneNumber) throws BaseException{
+//        try{
+//            return userDao.checkPhoneNumber(phoneNumber);
+//        } catch (Exception exception){
+//            throw new BaseException(DATABASE_ERROR);
+//        }
+//    }
+
+    public int checkNickName(String nickName) throws BaseException{
         try{
-            return userDao.checkPhoneNumber(phoneNumber);
+            return userDao.checkNickName(nickName);
         } catch (Exception exception){
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
     public PostLoginRes login(PostLoginReq postLoginReq) throws BaseException{
         User user = userDao.getPwd(postLoginReq);
         String password;

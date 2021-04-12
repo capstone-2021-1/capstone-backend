@@ -22,8 +22,8 @@ public class UserDao {
 
     // 유저 생성
     public int createUser(PostUserReq postUserReq){
-        String createUserQuery = "insert into User (email, password, phoneNumber, name) VALUES (?,?,?,?)";
-        Object[] createUserParams = new Object[]{postUserReq.getUserEmail(), postUserReq.getUserPassword(), postUserReq.getUserPhoneNumber(), postUserReq.getUserName()};
+        String createUserQuery = "insert into User (email, password, name, nickName, profileImage) VALUES (?,?,?,?, ?, ?)";
+        Object[] createUserParams = new Object[]{postUserReq.getUserEmail(), postUserReq.getUserPassword(), postUserReq.getUserName(), postUserReq.getUserNickName(), postUserReq.getUserProfileImage()};
         this.jdbcTemplate.update(createUserQuery, createUserParams);
 
         String lastInserIdQuery = "select last_insert_id()";
@@ -37,6 +37,16 @@ public class UserDao {
                 int.class,
                 checkEmailParams);
     }
+
+    public int checkNickName(String nickName){
+        String checkNickNameQuery = "select exists(select nickName from User where nickName = ?)";
+        String checkNickNameParams = nickName;
+        return this.jdbcTemplate.queryForObject(checkNickNameQuery,
+                int.class,
+                checkNickNameParams);
+    }
+
+
     public int checkPhoneNumber(String phoneNumber){
         String checkPhoneNumberQuery = "select exists(select phoneNumber from User where phoneNumber = ?)";
         String checkPhoneNumberParams = phoneNumber;
