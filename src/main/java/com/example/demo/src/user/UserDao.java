@@ -22,7 +22,7 @@ public class UserDao {
 
     // 유저 생성
     public int createUser(PostUserReq postUserReq){
-        String createUserQuery = "insert into User (email, password, name, nickName, profileImage) VALUES (?,?,?,?, ?, ?)";
+        String createUserQuery = "insert into User (email, password, name, nickName, profileImage) VALUES (?,?,?,?,?)";
         Object[] createUserParams = new Object[]{postUserReq.getUserEmail(), postUserReq.getUserPassword(), postUserReq.getUserName(), postUserReq.getUserNickName(), postUserReq.getUserProfileImage()};
         this.jdbcTemplate.update(createUserQuery, createUserParams);
 

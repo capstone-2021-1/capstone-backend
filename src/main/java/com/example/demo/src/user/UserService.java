@@ -38,9 +38,6 @@ public class UserService {
         if(userProvider.checkEmail(postUserReq.getEmail()) ==1){
             throw new BaseException(POST_USERS_EXISTS_EMAIL);
         }
-//        if(userProvider.checkPhoneNumber(postUserReq.getUserPhoneNumber()) ==1){
-//            throw new BaseException(POST_USERS_EXISTS_PHONENUMBER);
-//        }
 
         if(userProvider.checkNickName(postUserReq.getUserNickName()) ==1){
             throw new BaseException(POST_USERS_EXISTS_NICKNAME);
