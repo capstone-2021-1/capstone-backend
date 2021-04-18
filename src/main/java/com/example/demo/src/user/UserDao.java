@@ -120,10 +120,10 @@ public class UserDao {
     // 대표 주소 설정하기
     public void patchUserMainAddr(int userIdx, int idx){
 
-        String clearUserMainAddrQuery = "update UserDeliveryAddress set main = ? where userIdx=?";
+        String clearUserMainAddrQuery = "update UserDeliveryAddress set mainAddr = ? where userIdx=?";
         Object[]  clearUserMainAddrParams = new Object[]{0,userIdx};
         this.jdbcTemplate.update(clearUserMainAddrQuery,clearUserMainAddrParams);
-        String patchUserMainAddrQuery = "update UserDeliveryAddress set main = ? where idx=?";
+        String patchUserMainAddrQuery = "update UserDeliveryAddress set mainAddr = ? where idx=?";
         Object[]  patchUserMainAddrParams = new Object[]{1,idx};
         this.jdbcTemplate.update(patchUserMainAddrQuery, patchUserMainAddrParams);
 
