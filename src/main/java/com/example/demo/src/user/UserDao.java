@@ -83,7 +83,7 @@ public class UserDao {
         this.jdbcTemplate.update(postUserAddrQuery, postUserAddrParams);
     }
 
-
+    // 마이페이지
     public GetUserRes getUser(int userIdx){
         return this.jdbcTemplate.queryForObject("select name,phoneNumber from User where idx = ?",
                 (rs, rowNum) -> new GetUserRes(
@@ -95,7 +95,7 @@ public class UserDao {
 
     // 대표 주소 보기
     public GetUserAddrRes getUserAddr(int userIdx){
-        return this.jdbcTemplate.queryForObject("select address,addressType from UserDeliveryAddress where (userIdx = ? && main=?)",
+        return this.jdbcTemplate.queryForObject("select address,addressType from UserDeliveryAddress where (userIdx = ? && mainAddr=?)",
                 (rs, rowNum) -> new GetUserAddrRes(
                         rs.getString("address"),
                         rs.getString("addressType")
