@@ -95,8 +95,9 @@ public class UserDao {
 
     // 대표 주소 보기
     public GetUserAddrRes getUserAddr(int userIdx){
-        return this.jdbcTemplate.queryForObject("select address,addressType from UserDeliveryAddress where (userIdx = ? && mainAddr=?)",
+        return this.jdbcTemplate.queryForObject("select idx, address,addressType from UserDeliveryAddress where (userIdx = ? && mainAddr=?)",
                 (rs, rowNum) -> new GetUserAddrRes(
+                        rs.getInt("idx"),
                         rs.getString("address"),
                         rs.getString("addressType")
                 ),
@@ -105,8 +106,9 @@ public class UserDao {
 
     // 주소 목록 보기
     public List<GetUserAddrListRes> getUserAddrList(int userIdx){
-        return this.jdbcTemplate.query("select address,detailedAddress,addressType from UserDeliveryAddress where userIdx = ?",
+        return this.jdbcTemplate.query("select idx, address,detailedAddress,addressType from UserDeliveryAddress where userIdx = ?",
                 (rs, rowNum) -> new GetUserAddrListRes(
+                        rs.getInt("idx"),
                         rs.getString("address"),
                         rs.getString("detailedAddress"),
                         rs.getString("addressType")

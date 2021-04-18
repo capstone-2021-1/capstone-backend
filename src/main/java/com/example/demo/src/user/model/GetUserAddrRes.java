@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class GetUserAddrRes {
+    private int idx;
     private String address;
-
     private String addressType;
 }
