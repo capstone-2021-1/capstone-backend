@@ -8,5 +8,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class GetUserAddrRes {
     private String address;
+
     private String addressType;
 }
