@@ -42,4 +42,22 @@ public class RestaurantController {
         List<GetAdRes> getAdRes = restaurantProvider.getAd();
         return new BaseResponse<>(getAdRes);
     }
+
+    // 메뉴 싫어요
+    @ResponseBody
+    @PostMapping("/menus/{menuIdx}/hate")
+    public BaseResponse<String> postMenuHate(@PathVariable("menuIdx") int menuIdx){
+        try{
+            //jwt에서 idx 추출.
+            int userIdxByJwt = jwtService.getUserIdx();
+
+            restaurantService.postMenuHate(menuIdx,userIdxByJwt);
+
+            String result = "메뉴 싫어요";
+            return new BaseResponse<>(result);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+
+    }
 }

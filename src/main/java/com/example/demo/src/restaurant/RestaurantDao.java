@@ -27,5 +27,9 @@ public class RestaurantDao {
                 ));
     }
 
-
+    public void postMenuHate(int menuIdx, int userIdx){
+        String postMenuHateQuery = "insert into UserMenuHate (menuIdx, userIdx) VALUES (?,?)";
+        Object[] postLikePostParams = new Object[]{menuIdx, userIdx};
+        this.jdbcTemplate.update(postMenuHateQuery, postLikePostParams);
+    }
 }

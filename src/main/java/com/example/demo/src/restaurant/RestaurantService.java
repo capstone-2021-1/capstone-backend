@@ -36,4 +36,6 @@ public class RestaurantService {
         this.jwtService = jwtService;
     }
 
+    public void postMenuHate(int menuIdx, int userIdx){ restaurantDao.postMenuHate(menuIdx, userIdx);}
+
 }
