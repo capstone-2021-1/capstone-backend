@@ -37,5 +37,8 @@ public class RestaurantProvider {
         List<GetAdRes> getAdRes = restaurantDao.getAd();
         return getAdRes;
     }
-
+    public List<GetCategoryRestaurantListRes> getCategoryRestaurantListRes(String category){
+        List<GetCategoryRestaurantListRes> getCategoryRestaurantListRes = restaurantDao.getCategoryRestaurantListRes(category);
+        return getCategoryRestaurantListRes;
+    }
 }

@@ -42,6 +42,12 @@ public class RestaurantController {
         List<GetAdRes> getAdRes = restaurantProvider.getAd();
         return new BaseResponse<>(getAdRes);
     }
+    // 카테고리별 상세 화면
+    @GetMapping("")
+    public BaseResponse<List<GetCategoryRestaurantListRes>> getCategoryestaurantListRes(@RequestParam(required = false) String category){
+        List<GetCategoryRestaurantListRes> getCategoryRestaurantListRes = restaurantProvider.getCategoryRestaurantListRes(category);
+        return new BaseResponse<>(getCategoryRestaurantListRes);
+    }
 
     // 메뉴 싫어요
     @ResponseBody
