@@ -32,4 +32,19 @@ public class RestaurantDao {
         Object[] postLikePostParams = new Object[]{menuIdx, userIdx};
         this.jdbcTemplate.update(postMenuHateQuery, postLikePostParams);
     }
+    public void postMenuLike(int menuIdx, int userIdx){
+        String postMenuHateQuery = "insert into UserMenuLike (menuIdx, userIdx) VALUES (?,?)";
+        Object[] postLikePostParams = new Object[]{menuIdx, userIdx};
+        this.jdbcTemplate.update(postMenuHateQuery, postLikePostParams);
+    }
+    public void postMenuJjim(int menuIdx, int userIdx){
+        String postMenuHateQuery = "insert into UserJjimMenu (menuIdx, userIdx) VALUES (?,?)";
+        Object[] postLikePostParams = new Object[]{menuIdx, userIdx};
+        this.jdbcTemplate.update(postMenuHateQuery, postLikePostParams);
+    }
+    public void postRestaurantJjim(int restaurantIdx, int userIdx){
+        String postMenuHateQuery = "insert into UserJjimRestaurant (restaurantIdx, userIdx) VALUES (?,?)";
+        Object[] postLikePostParams = new Object[]{restaurantIdx, userIdx};
+        this.jdbcTemplate.update(postMenuHateQuery, postLikePostParams);
+    }
 }

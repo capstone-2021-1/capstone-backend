@@ -58,6 +58,55 @@ public class RestaurantController {
         } catch (BaseException exception) {
             return new BaseResponse<>((exception.getStatus()));
         }
+    }
 
+    // 메뉴 좋아요
+    @ResponseBody
+    @PostMapping("/menus/{menuIdx}/like")
+    public BaseResponse<String> postMenuLike(@PathVariable("menuIdx") int menuIdx){
+        try{
+            //jwt에서 idx 추출.
+            int userIdxByJwt = jwtService.getUserIdx();
+
+            restaurantService.postMenuLike(menuIdx,userIdxByJwt);
+
+            String result = "메뉴 좋아요";
+            return new BaseResponse<>(result);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    // 메뉴 찜
+    @ResponseBody
+    @PostMapping("/menus/{menuIdx}/jjim")
+    public BaseResponse<String> postMenuJjim(@PathVariable("menuIdx") int menuIdx){
+        try{
+            //jwt에서 idx 추출.
+            int userIdxByJwt = jwtService.getUserIdx();
+
+            restaurantService.postMenuJjim(menuIdx,userIdxByJwt);
+
+            String result = "메뉴 찜";
+            return new BaseResponse<>(result);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+    // 매장 찜
+    @ResponseBody
+    @PostMapping("/{restaurantIdx}/jjim")
+    public BaseResponse<String> postRestaurantJjim(@PathVariable("restaurantIdx") int restaurantIdx){
+        try{
+            //jwt에서 idx 추출.
+            int userIdxByJwt = jwtService.getUserIdx();
+
+            restaurantService.postRestaurantJjim(restaurantIdx,userIdxByJwt);
+
+            String result = "매장 찜";
+            return new BaseResponse<>(result);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
     }
 }
