@@ -70,6 +70,11 @@ public class RestaurantDao {
         this.jdbcTemplate.update(postMenuHateQuery, postLikePostParams);
     }
 
+    public void postFeedLike(int feedIdx, int userIdx){
+        String postMenuHateQuery = "insert into NewsFeedLike (feedIdx, userIdx) VALUES (?,?)";
+        Object[] postLikePostParams = new Object[]{feedIdx, userIdx};
+        this.jdbcTemplate.update(postMenuHateQuery, postLikePostParams);
+    }
 
 
 }

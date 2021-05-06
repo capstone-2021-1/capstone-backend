@@ -115,4 +115,23 @@ public class RestaurantController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+
+
+
+    // 피드 좋아요
+    @ResponseBody
+    @PostMapping("/feeds/{feedIdx}/like")
+    public BaseResponse<String> postFeedLike(@PathVariable("feedIdx") int feedIdx){
+        try{
+            //jwt에서 idx 추출.
+            int userIdxByJwt = jwtService.getUserIdx();
+
+            restaurantService.postFeedLike(feedIdx,userIdxByJwt);
+
+            String result = "피드 좋아요";
+            return new BaseResponse<>(result);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 }
