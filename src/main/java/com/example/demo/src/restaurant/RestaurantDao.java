@@ -48,33 +48,61 @@ public class RestaurantDao {
     }
 
 
-
+    // 메뉴 싫어요
     public void postMenuHate(int menuIdx, int userIdx){
         String postMenuHateQuery = "insert into UserMenuHate (menuIdx, userIdx) VALUES (?,?)";
         Object[] postLikePostParams = new Object[]{menuIdx, userIdx};
         this.jdbcTemplate.update(postMenuHateQuery, postLikePostParams);
     }
+
+    // 메뉴 좋아요
     public void postMenuLike(int menuIdx, int userIdx){
         String postMenuHateQuery = "insert into UserMenuLike (menuIdx, userIdx) VALUES (?,?)";
         Object[] postLikePostParams = new Object[]{menuIdx, userIdx};
         this.jdbcTemplate.update(postMenuHateQuery, postLikePostParams);
     }
+    // 메뉴 찜
     public void postMenuJjim(int menuIdx, int userIdx){
         String postMenuHateQuery = "insert into UserJjimMenu (menuIdx, userIdx) VALUES (?,?)";
         Object[] postLikePostParams = new Object[]{menuIdx, userIdx};
         this.jdbcTemplate.update(postMenuHateQuery, postLikePostParams);
     }
+
+    // 매장 찜
     public void postRestaurantJjim(int restaurantIdx, int userIdx){
         String postMenuHateQuery = "insert into UserJjimRestaurant (restaurantIdx, userIdx) VALUES (?,?)";
         Object[] postLikePostParams = new Object[]{restaurantIdx, userIdx};
         this.jdbcTemplate.update(postMenuHateQuery, postLikePostParams);
     }
 
+    // 매장 피드 보기
+    // 피드 인덱스, 매장 인덱스, 매장 명, 피드 사진(4장),피드 내용, (댓글)
+    public List<GetRestaurantFeedRes> getRestaurantFeedRes(int restaurantIdx){
+        return this.jdbcTemplate.query("select f.idx as feedIdx, f.restaurantIdx, R.name, concat(R.image1, ',',R.image2, ',',R.image3) as images, f.content, GROUP_CONCAT(H.content) AS hashtag\n" +
+                "from NewsFeed f\n" +
+                "join Restaurant R on f.restaurantIdx = R.idx\n" +
+                "left join NewsFeedHashtag NFH on f.idx = NFH.feedIdx\n" +
+                "left join Hashtag H on NFH.hashtagIdx = H.idx\n" +
+                "where R.idx = ?\n" +
+                "group by f.idx",(rs, rowNum) -> new GetRestaurantFeedRes(
+                rs.getInt("feedIdx"),
+                rs.getInt("restaurantIdx"),
+                rs.getString("name"),
+                rs.getString("images"),
+                rs.getString("content"),
+                rs.getString("hashTag")
+        ),restaurantIdx);
+    }
+
+
+    // 매장 피드 좋아요
     public void postFeedLike(int feedIdx, int userIdx){
         String postMenuHateQuery = "insert into NewsFeedLike (feedIdx, userIdx) VALUES (?,?)";
         Object[] postLikePostParams = new Object[]{feedIdx, userIdx};
         this.jdbcTemplate.update(postMenuHateQuery, postLikePostParams);
     }
+
+
 
 
 }

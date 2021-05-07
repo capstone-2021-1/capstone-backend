@@ -37,8 +37,17 @@ public class RestaurantProvider {
         List<GetAdRes> getAdRes = restaurantDao.getAd();
         return getAdRes;
     }
+
+    // 카테고리별 매장 목록
     public List<GetCategoryRestaurantListRes> getCategoryRestaurantListRes(String category){
         List<GetCategoryRestaurantListRes> getCategoryRestaurantListRes = restaurantDao.getCategoryRestaurantListRes(category);
         return getCategoryRestaurantListRes;
     }
+
+    // 매장별 피드 목록
+    public List<GetRestaurantFeedRes> getRestaurantFeedRes(int restaurantIdx){
+        List<GetRestaurantFeedRes> getRestaurantFeedRes = restaurantDao.getRestaurantFeedRes(restaurantIdx);
+        return getRestaurantFeedRes;
+    }
+
 }
