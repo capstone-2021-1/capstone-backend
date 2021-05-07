@@ -141,4 +141,12 @@ public class RestaurantController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+
+    // 매장별 메뉴 목록
+    @ResponseBody
+    @GetMapping("/{restaurantIdx}/menu-board")
+    public BaseResponse<List<GetMenuListRes>> getMenuListRes(@PathVariable("restaurantIdx") int restaurantIdx){
+        List<GetMenuListRes> getMenuListRes = restaurantProvider.getMenuListRes(restaurantIdx);
+        return new BaseResponse<>(getMenuListRes);
+    }
 }

@@ -12,15 +12,15 @@ public class GetMenuListRes {
     private int restaurantIdx;
     private String image;
     private String menuName;
-    private String restaurantName;
     private int price;
+    private String restaurantName;
     private int reorder;
     private String hashTags;
     private int like;
     private int hate;
-    private int deliveryTime;
+//    private int deliveryTime;
     private int deliveryCost;
     private int minimumOrderAmount;
-    private int jjim;
+//    private int jjim;
 
 }

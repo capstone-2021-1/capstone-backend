@@ -50,4 +50,10 @@ public class RestaurantProvider {
         return getRestaurantFeedRes;
     }
 
+    // 매장별 메뉴 목록
+    public List<GetMenuListRes> getMenuListRes(int restaurantIdx){
+        List<GetMenuListRes> getMenuListRes = restaurantDao.getMenuListRes(restaurantIdx);
+        return getMenuListRes;
+    }
+
 }
