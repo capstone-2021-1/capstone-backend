@@ -109,6 +109,27 @@ public class RestaurantDao {
         this.jdbcTemplate.update(postRestaurantCommentQuery, postRestaurantCommentParams);
     }
 
+    // 매장 정보
+    // 매장 인덱스, 매장 사진, 매장 명, 재주문율, 단골 수 , 찜 수,배당 예상 시간, 최소주문금, 배달비용
+    public GetRestaurantRes getRestaurantRes(int restaurantIdx){
+        return this.jdbcTemplate.queryForObject("select R.idx as restaurantIdx, concat_ws(',',R.image1,R.image2,R.image3) as images, R.name as restaurantName, R.reorder as reorder, count(distinct UJR.idx) as jjimNum, count(distinct URR.idx) as regularNum, R.deliveryTime, R.minimumOrderAmount, R.deliveryCost\n" +
+                "from Restaurant R\n" +
+                "left join UserJjimRestaurant UJR on R.idx = UJR.restaurantIdx\n" +
+                "left join UserRegularRestaurant URR on R.idx = URR.restaurantIdx\n" +
+                "where R.idx = ?\n" +
+                "group by R.idx",(rs, rowNum) -> new GetRestaurantRes(
+                rs.getInt("restaurantIdx"),
+                rs.getString("images"),
+                rs.getString("restaurantName"),
+                rs.getInt("reorder"),
+                rs.getInt("jjimNum"),
+                rs.getInt("regularNum"),
+                rs.getInt("deliveryTime"),
+                rs.getInt("minimumOrderAmount"),
+                rs.getInt("deliveryCost")
+        ),restaurantIdx);
+    }
+
 
     // 메뉴리스트 보여주기(매장)
     // 메뉴 id, 매장 id, 메뉴 사진, 메뉴 이름, 가격, 매장이름, 재주문율, 해시태그들, 좋아수, 싫어요 수, 배달비용, 최소주문금, (찜여부)

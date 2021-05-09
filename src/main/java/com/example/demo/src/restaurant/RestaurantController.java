@@ -160,6 +160,14 @@ public class RestaurantController {
         }
     }
 
+    // 매장 정보
+    // 매장별 메뉴 목록
+    @ResponseBody
+    @GetMapping("/{restaurantIdx}")
+    public BaseResponse<GetRestaurantRes> getRestaurantRes(@PathVariable("restaurantIdx") int restaurantIdx){
+        GetRestaurantRes getRestaurantRes = restaurantProvider.getRestaurantRes(restaurantIdx);
+        return new BaseResponse<>(getRestaurantRes);
+    }
 
     // 매장별 메뉴 목록
     @ResponseBody

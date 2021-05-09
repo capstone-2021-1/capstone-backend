@@ -56,4 +56,10 @@ public class RestaurantProvider {
         return getMenuListRes;
     }
 
+    // 매장 정보
+    public GetRestaurantRes getRestaurantRes(int restaurantIdx){
+        GetRestaurantRes getRestaurantRes = restaurantDao.getRestaurantRes(restaurantIdx);
+        return getRestaurantRes;
+    }
+
 }
