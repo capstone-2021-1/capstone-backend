@@ -41,6 +41,6 @@ public class RestaurantService {
     public void postMenuJjim(int menuIdx, int userIdx){ restaurantDao.postMenuJjim(menuIdx, userIdx);}
     public void postRestaurantJjim(int restaurantIdx, int userIdx){ restaurantDao.postRestaurantJjim(restaurantIdx, userIdx);}
     public void postFeedLike(int feedIdx, int userIdx){ restaurantDao.postFeedLike(feedIdx, userIdx);}
-
+    public void postRestaurantComments(int feedIdx, int userIdx, PostFeedCommentReq postFeedCommentReq){restaurantDao.postRestaurantComments(feedIdx, userIdx, postFeedCommentReq);}
 
 }

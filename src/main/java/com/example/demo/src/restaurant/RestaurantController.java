@@ -142,6 +142,25 @@ public class RestaurantController {
         }
     }
 
+    // 피드 댓글
+    @ResponseBody
+    @PostMapping("/feeds/{feedIdx}/comments")
+    public BaseResponse<String> postRestaurantComments(@PathVariable("feedIdx") int feedIdx, @RequestBody PostFeedCommentReq postFeedCommentReq){
+        try{
+
+            //jwt에서 idx 추출.
+            int userIdxByJwt = jwtService.getUserIdx();
+
+            restaurantService.postRestaurantComments(feedIdx, userIdxByJwt, postFeedCommentReq);
+
+            String result = "피드 댓글 성공";
+            return new BaseResponse<>(result);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+
     // 매장별 메뉴 목록
     @ResponseBody
     @GetMapping("/{restaurantIdx}/menu-board")

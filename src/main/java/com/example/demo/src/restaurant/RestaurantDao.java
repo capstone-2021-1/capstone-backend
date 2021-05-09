@@ -102,6 +102,14 @@ public class RestaurantDao {
         this.jdbcTemplate.update(postMenuHateQuery, postLikePostParams);
     }
 
+    // 매장 피드 댓글
+    public void postRestaurantComments(int feedIdx,int userIdx, PostFeedCommentReq postFeedCommentReq){
+        String postRestaurantCommentQuery = "insert into NewsFeedComment (feedIdx, userIdx, comment) VALUES (?,?,?)";
+        Object[] postRestaurantCommentParams = new Object[]{feedIdx, userIdx, postFeedCommentReq.getComment()};
+        this.jdbcTemplate.update(postRestaurantCommentQuery, postRestaurantCommentParams);
+    }
+
+
     // 메뉴리스트 보여주기(매장)
     // 메뉴 id, 매장 id, 메뉴 사진, 메뉴 이름, 가격, 매장이름, 재주문율, 해시태그들, 좋아수, 싫어요 수, 배달비용, 최소주문금, (찜여부)
     public List<GetMenuListRes> getMenuListRes(int restaurantIdx){
@@ -129,6 +137,8 @@ public class RestaurantDao {
                 rs.getInt("minimumOrderAmount")
                 ),restaurantIdx);
     }
+
+
 
 
 
