@@ -37,8 +37,8 @@ public class OrderProvider {
     }
 
     // 결제 내역 조회
-    public List<GetOrderRes> getOrderResList(){
-        List<GetOrderRes> getOrderResList = orderDao.getOrderResList();
+    public List<GetOrderRes> getOrderResList(int userIdx){
+        List<GetOrderRes> getOrderResList = orderDao.getOrderResList(userIdx);
         return getOrderResList;
     }
 }

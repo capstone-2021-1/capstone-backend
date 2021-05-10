@@ -74,7 +74,7 @@ public class OrderController {
             //jwt에서 idx 추출.
             int userIdxByJwt = jwtService.getUserIdx();
 
-            List<GetOrderRes> getOrderRes = orderProvider.getOrderResList();
+            List<GetOrderRes> getOrderRes = orderProvider.getOrderResList(userIdxByJwt);
             return new BaseResponse<>(getOrderRes);
         } catch (BaseException exception) {
             return new BaseResponse<>((exception.getStatus()));
