@@ -54,4 +54,31 @@ public class OrderController {
         }
     }
 
+    // 결과 화면 조회
+    @GetMapping("{orderIdx}")
+    public BaseResponse<GetOrderRes> getOrderRes(@PathVariable("orderIdx") int orderIdx){
+        try {
+            //jwt에서 idx 추출.
+            int userIdxByJwt = jwtService.getUserIdx();
+
+            GetOrderRes getOrderRes = orderProvider.getOrderRes(orderIdx);
+            return new BaseResponse<>(getOrderRes);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    @GetMapping("")
+    public BaseResponse<List<GetOrderRes>> getOrderResList(){
+        try {
+            //jwt에서 idx 추출.
+            int userIdxByJwt = jwtService.getUserIdx();
+
+            List<GetOrderRes> getOrderRes = orderProvider.getOrderResList();
+            return new BaseResponse<>(getOrderRes);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
 }

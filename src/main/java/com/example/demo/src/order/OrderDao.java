@@ -34,6 +34,45 @@ public class OrderDao {
             Object[] postMenuListParams = new Object[]{lastIdx, menuList[i].getmenuIdx(),menuList[i].getMenuOption(), menuList[i].getPrice(),menuList[i].getNumber()};
             this.jdbcTemplate.update(postMenuListQuery, postMenuListParams);
         }
+    }
+    // 결제 완료페이지
+    public GetOrderRes getOrderRes(int orderIdx){
+        return this.jdbcTemplate.queryForObject("select o.idx as orderIdx,r.deliveryTime,uda.detailedAddress,r.name as restaurantName,GROUP_CONCAT(m.name) as menuList, o.totalPrice, o.paymentMethod \n" +
+                "from UserOrder o\n" +
+                "join Restaurant r on o.restaurantIdx = r.idx\n" +
+                "join UserOrderMenu um on um.orderIdx = o.idx\n" +
+                "join Menu m on m.idx = um.menuIdx\n" +
+                "join User u on u.idx = o.userIdx\n" +
+                "join UserDeliveryAddress uda on u.idx = uda.userIdx\n" +
+                "where o.idx = ?\n" +
+                "group by o.idx", (rs, rowNum)-> new GetOrderRes(
+                rs.getInt("orderIdx"),
+                rs.getInt("deliveryTime"),
+                rs.getString("detailedAddress"),
+                rs.getString("restaurantName"),
+                rs.getString("menuList"),
+                rs.getInt("totalPrice"),
+                rs.getString("paymentMethod")
+        ),orderIdx);
+    }
 
+    // 결제 내역
+    public List<GetOrderRes> getOrderResList(){
+        return this.jdbcTemplate.query("select o.idx as orderIdx,r.deliveryTime,uda.detailedAddress,r.name as restaurantName,GROUP_CONCAT(m.name) as menuList, o.totalPrice, o.paymentMethod \n" +
+                "from UserOrder o\n" +
+                "join Restaurant r on o.restaurantIdx = r.idx\n" +
+                "join UserOrderMenu um on um.orderIdx = o.idx\n" +
+                "join Menu m on m.idx = um.menuIdx\n" +
+                "join User u on u.idx = o.userIdx\n" +
+                "join UserDeliveryAddress uda on u.idx = uda.userIdx\n" +
+                "group by o.idx", (rs, rowNum)-> new GetOrderRes(
+                rs.getInt("orderIdx"),
+                rs.getInt("deliveryTime"),
+                rs.getString("detailedAddress"),
+                rs.getString("restaurantName"),
+                rs.getString("menuList"),
+                rs.getInt("totalPrice"),
+                rs.getString("paymentMethod")
+        ));
     }
 }

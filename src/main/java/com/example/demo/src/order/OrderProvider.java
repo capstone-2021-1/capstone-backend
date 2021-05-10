@@ -30,5 +30,15 @@ public class OrderProvider {
         this.orderDao = orderDao;
         this.jwtService = jwtService;
     }
+    // 결제 화면 조회
+    public GetOrderRes getOrderRes(int orderIdx){
+        GetOrderRes getOrderRes = orderDao.getOrderRes(orderIdx);
+        return getOrderRes;
+    }
 
+    // 결제 내역 조회
+    public List<GetOrderRes> getOrderResList(){
+        List<GetOrderRes> getOrderResList = orderDao.getOrderResList();
+        return getOrderResList;
+    }
 }
