@@ -3,6 +3,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -14,8 +17,16 @@ public class GetRestaurantFeedRes {
     private String images;
     private String content;
     private String hashTag;
-    //    private String comments;
 
-    public String getComment(){return this.images;}
+    //    private String comments;
+    public List<String> getImages(){
+        String[] imageArray = images.split(",");
+        List<String> imageArray2 = new ArrayList<>();
+        for(int i=0; i < imageArray.length;i++){
+            imageArray2.add(imageArray[i]);
+        }
+        return imageArray2;
+    }
+    public String getComment(){return "댓글";}
 
 }
