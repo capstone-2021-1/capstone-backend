@@ -31,7 +31,7 @@ public class RestaurantDao {
     // 가게 리스트 받아오기(카테고리)
     // 매장 인덱스, 가게명, 가게 이미지, 해시태그, 찜한 수, 최근 피드 수, 배달시간, 배송료, 최소주문금
     public List<GetCategoryRestaurantListRes> getCategoryRestaurantListRes(String category){
-        return this.jdbcTemplate.query("select r.idx as restaurantIdx, r.name, r.image1 as image, GROUP_CONCAT(H.content) AS hashtag, count(UJR.idx) as jjim, r.deliveryTime, r.deliveryCost, r.minimumOrderAmount from Restaurant r\n" +
+        return this.jdbcTemplate.query("select r.idx as restaurantIdx, r.name, r.image1 as image, GROUP_CONCAT(distinct H.content) AS hashtag, count(UJR.idx) as jjim, r.deliveryTime, r.deliveryCost, r.minimumOrderAmount from Restaurant r\n" +
                 "left join RestaurantHashtag RH on r.idx = RH.restaurantIdx\n" +
                 "left join Hashtag H on RH.hashtagIdx = H.idx\n" +
                 "left join UserJjimRestaurant UJR on r.idx = UJR.restaurantIdx\n" +
@@ -82,7 +82,7 @@ public class RestaurantDao {
 
         //CONCAT('[',concat_ws(',' ,R.image1,R.image2,R.image3), ']') as images
 
-        return this.jdbcTemplate.query("select f.idx as feedIdx, f.restaurantIdx, R.name, concat_ws(',',R.image1,R.image2,R.image3) as images, f.content, GROUP_CONCAT(H.content) AS hashtag\n" +
+        return this.jdbcTemplate.query("select f.idx as feedIdx, f.restaurantIdx, R.name, concat_ws(',',R.image1,R.image2,R.image3) as images, f.content, GROUP_CONCAT(distinct H.content) AS hashtag\n" +
                 "from NewsFeed f\n" +
                 "join Restaurant R on f.restaurantIdx = R.idx\n" +
                 "left join NewsFeedHashtag NFH on f.idx = NFH.feedIdx\n" +
@@ -162,9 +162,4 @@ public class RestaurantDao {
                 rs.getInt("minimumOrderAmount")
                 ),restaurantIdx);
     }
-
-
-
-
-
 }

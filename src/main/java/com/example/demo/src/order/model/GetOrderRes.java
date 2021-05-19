@@ -3,6 +3,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -16,4 +19,14 @@ public class GetOrderRes {
     private String menuList;
     private int totalPrice;
     private String paymentMethod;
+
+    public List<String> getMenuList(){
+        String[] imageArray = menuList.split(",");
+        List<String> imageArray2 = new ArrayList<>();
+        for(int i=0; i < imageArray.length;i++){
+            imageArray2.add(imageArray[i]);
+        }
+        return imageArray2;
+    }
+
 }

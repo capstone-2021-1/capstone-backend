@@ -3,6 +3,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,4 +21,14 @@ public class GetCategoryRestaurantListRes {
     private int deliveryTime;
     private int deliveryCost;
     private int minimumOrderAmount;
+
+    public List<String> gethashTags(){
+        String[] hashTagsArray = hashTags.split(",");
+        List<String> hashTagsArray2 = new ArrayList<>();
+        for(int i=0; i < hashTagsArray.length;i++){
+            hashTagsArray2.add(hashTagsArray[i]);
+        }
+        return hashTagsArray2;
+    }
+
 }
