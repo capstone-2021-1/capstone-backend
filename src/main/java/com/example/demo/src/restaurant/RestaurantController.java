@@ -117,7 +117,7 @@ public class RestaurantController {
     }
 
 
-    // 매장별 피드 불러오기
+    // 매장별 피드 가져오기
     @ResponseBody
     @GetMapping("/feeds/{restaurantIdx}")
     public BaseResponse<List<GetRestaurantFeedRes>> getRestaurantFeedRes(@PathVariable("restaurantIdx") int restaurantIdx){

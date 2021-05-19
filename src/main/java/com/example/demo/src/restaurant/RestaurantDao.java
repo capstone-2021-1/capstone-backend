@@ -19,6 +19,7 @@ public class RestaurantDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    // 광고
     public List<GetAdRes> getAd(){
         return this.jdbcTemplate.query("select idx, adImage from Ad",
                 (rs, rowNum)->new GetAdRes(
@@ -78,6 +79,9 @@ public class RestaurantDao {
     // 매장 피드 보기
     // 피드 인덱스, 매장 인덱스, 매장 명, 피드 사진(4장),피드 내용, (댓글)
     public List<GetRestaurantFeedRes> getRestaurantFeedRes(int restaurantIdx){
+
+        //CONCAT('[',concat_ws(',' ,R.image1,R.image2,R.image3), ']') as images
+
         return this.jdbcTemplate.query("select f.idx as feedIdx, f.restaurantIdx, R.name, concat_ws(',',R.image1,R.image2,R.image3) as images, f.content, GROUP_CONCAT(H.content) AS hashtag\n" +
                 "from NewsFeed f\n" +
                 "join Restaurant R on f.restaurantIdx = R.idx\n" +

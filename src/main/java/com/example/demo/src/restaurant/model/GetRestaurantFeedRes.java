@@ -15,4 +15,7 @@ public class GetRestaurantFeedRes {
     private String content;
     private String hashTag;
     //    private String comments;
+
+    public String getComment(){return this.images;}
+
 }
