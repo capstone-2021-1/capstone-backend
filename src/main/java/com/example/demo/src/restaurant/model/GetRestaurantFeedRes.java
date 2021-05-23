@@ -27,6 +27,14 @@ public class GetRestaurantFeedRes {
         }
         return imageArray2;
     }
+    public List<String> getHashTag(){
+        String[] hashTagArray = hashTag.split(",");
+        List<String> hashTagArray2 = new ArrayList<>();
+        for(int i=0; i < hashTagArray.length;i++){
+            hashTagArray2.add(hashTagArray[i]);
+        }
+        return hashTagArray2;
+    }
     public String getComment(){return "댓글";}
 
 }

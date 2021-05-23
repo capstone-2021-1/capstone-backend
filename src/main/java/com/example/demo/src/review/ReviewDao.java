@@ -27,18 +27,9 @@ public class ReviewDao {
 //                ),postReviewReq.getOrderIdx());
 
 
-        String postReviewQuery = "insert into Review (orderIdx, restaurantIdx,score, content) VALUES (?,?,?,?)";
-        Object[] postReviewParams = new Object[]{postReviewReq.getOrderIdx(),1,postReviewReq.getScore(), postReviewReq.getContent()};
+        String postReviewQuery = "insert into Review (orderIdx,score, content,image1,image2,image3,image4,image5) VALUES (?,?,?,?,?,?,?,?)";
+        Object[] postReviewParams = new Object[]{postReviewReq.getOrderIdx(),postReviewReq.getScore(), postReviewReq.getContent(),postReviewReq.getImage1(),postReviewReq.getImage2(),postReviewReq.getImage3(),postReviewReq.getImage4(),postReviewReq.getImage5()};
         this.jdbcTemplate.update(postReviewQuery, postReviewParams);
-
-        int lastIdx = jdbcTemplate.queryForObject("select max(idx) from Review", Integer.class);
-
-        String[] images= postReviewReq.getImage();
-        for(int i=0;i<images.length;i++){
-            String postReviewImageQuery = "insert into ReviewImage (reviewIdx, image) VALUES (?,?)";
-            Object[] postReviewImageParams = new Object[]{lastIdx,images[i]};
-            this.jdbcTemplate.update(postReviewImageQuery, postReviewImageParams);
-        }
 
     }
 //    public void postReviewImage(PostReviewReq postReviewReq){

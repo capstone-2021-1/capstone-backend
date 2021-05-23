@@ -47,7 +47,7 @@ public class ReviewController {
             int userIdxByJwt = jwtService.getUserIdx();
 
             //같다면 리뷰등록
-            PostReviewReq postReviewReq2 = new PostReviewReq(postReviewReq.getOrderIdx(), postReviewReq.getScore(), postReviewReq.getContent(), postReviewReq.getImage());
+            PostReviewReq postReviewReq2 = new PostReviewReq(postReviewReq.getOrderIdx(), postReviewReq.getScore(), postReviewReq.getContent(), postReviewReq.getImage1(), postReviewReq.getImage2(), postReviewReq.getImage3(), postReviewReq.getImage4(), postReviewReq.getImage5());
             reviewService.postReview(postReviewReq2);
 
 
@@ -81,6 +81,7 @@ public class ReviewController {
         }
     }
 
+    // 리뷰 삭제
     @ResponseBody
     @PatchMapping("/{reviewIdx}/status")
     public BaseResponse<String> deleteReview(@PathVariable("reviewIdx") int reviewIdx){

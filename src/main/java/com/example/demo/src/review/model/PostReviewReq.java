@@ -15,7 +15,11 @@ public class PostReviewReq {
     private int orderIdx;
     private int score;
     private String content;
-    private String[] images;
+    private String image1;
+    private String image2;
+    private String image3;
+    private String image4;
+    private String image5;
 
     public int getOrderIdx(){
         return this.orderIdx;
@@ -26,5 +30,11 @@ public class PostReviewReq {
     public String getContent(){
         return this.content;
     }
-    public String[] getImage(){return this.images;}
+    public String getImage1(){return this.image1;}
+    public String getImage2(){return this.image2;}
+    public String getImage3(){return this.image3;}
+    public String getImage4(){return this.image4;}
+
+    public String getImage5(){return this.image5;}
+
 }
