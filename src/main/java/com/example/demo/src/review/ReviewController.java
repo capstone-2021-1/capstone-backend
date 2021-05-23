@@ -99,5 +99,10 @@ public class ReviewController {
         }
     }
 
+    @GetMapping("/{restaurantIdx}")
+    public BaseResponse<List<GetReviewRes>> getReview(@PathVariable("restaurantIdx") int restaurantIdx){
+        List<GetReviewRes> getReviewRes = reviewProvider.getReviewRes(restaurantIdx);
+        return new BaseResponse<>(getReviewRes);
+    }
 
 }

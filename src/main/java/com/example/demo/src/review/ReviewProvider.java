@@ -33,4 +33,8 @@ public class ReviewProvider {
         this.jwtService = jwtService;
     }
 
+    public List<GetReviewRes> getReviewRes(int restaurantIdx){
+        List<GetReviewRes> getReviewRes = reviewDao.getReviewRes(restaurantIdx);
+        return getReviewRes;
+    }
 }

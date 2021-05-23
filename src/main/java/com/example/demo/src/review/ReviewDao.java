@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Transactional
 @Repository
@@ -58,4 +59,19 @@ public class ReviewDao {
         this.jdbcTemplate.update(deleteReviewQuery,deleteReviewParams);
     }
 
+    // 리뷰 조회
+    //가게 상세 페이지: 리뷰 리스트 API
+    public List<GetReviewRes> getReviewRes(int restaurantIdx){
+        return this.jdbcTemplate.query("select R.idx as reviewIdx, concat_ws(',',R.image1,R.image2,R.image3,R.image4, R.image5) as images, R.content, R.score, R.createdAt\n" +
+                "from Review R\n" +
+                "join UserOrder UO on R.orderIdx = UO.idx\n" +
+                "join Restaurant R2 on UO.restaurantIdx = R2.idx\n" +
+                "where R2.idx = ?",(rs, rowNum) -> new GetReviewRes(
+                rs.getInt("reviewIdx"),
+                rs.getString("images"),
+                rs.getString("content"),
+                rs.getInt("score"),
+                rs.getString("createdAt")
+        ),restaurantIdx);
+    }
 }
