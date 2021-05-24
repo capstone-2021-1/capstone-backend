@@ -74,4 +74,53 @@ public class ReviewDao {
                 rs.getString("createdAt")
         ),restaurantIdx);
     }
+    // 모든 리뷰 조회
+    public List<GetAllReviewRes> getAllReviewRes(){
+        return this.jdbcTemplate.query("select R.idx as reviewIdx, R2.idx as restaurantIdx, concat_ws(',',R.image1,R.image2,R.image3,R.image4, R.image5) as images, R.content, R.score, R.createdAt\n" +
+                "from Review R\n" +
+                "join UserOrder UO on R.orderIdx = UO.idx\n" +
+                "join Restaurant R2 on UO.restaurantIdx = R2.idx\n",
+                (rs, rowNum) -> new GetAllReviewRes(
+                rs.getInt("reviewIdx"),
+                rs.getInt("restaurantIdx"),
+                rs.getString("images"),
+                rs.getString("content"),
+                rs.getInt("score"),
+                rs.getString("createdAt")
+        ));
+    }
+    // 특정 리뷰 조회
+    public GetOneReviewRes getOneReviewRes(int reviewIdx){
+        return this.jdbcTemplate.queryForObject("select R.idx as reviewIdx,R2.idx as restaurantIdx, U.idx as userIdx, U.name as userName, concat_ws(',',R.image1,R.image2,R.image3,R.image4, R.image5) as images, R.content, R.score, R.createdAt\n" +
+                        "from Review R\n" +
+                        "join UserOrder UO on R.orderIdx = UO.idx\n" +
+                        "join Restaurant R2 on UO.restaurantIdx = R2.idx\n" +
+                        "join User U on UO.userIdx = U.idx\n" +
+                        "where R.idx=?",
+                (rs, rowNum) -> new GetOneReviewRes(
+                        rs.getInt("reviewIdx"),
+                        rs.getInt("restaurantIdx"),
+                        rs.getInt("userIdx"),
+                        rs.getString("userName"),
+                        rs.getString("images"),
+                        rs.getString("content"),
+                        rs.getInt("score"),
+                        rs.getString("createdAt")
+                ),reviewIdx);
+    }
+
+
+    // 리뷰 도움이 돼요
+    public void postReviewHate(int reviewIdx, int userIdx){
+        String postMenuHateQuery = "insert into UserMenuHate (reviewIdx, userIdx) VALUES (?,?)";
+        Object[] postLikePostParams = new Object[]{reviewIdx, userIdx};
+        this.jdbcTemplate.update(postMenuHateQuery, postLikePostParams);
+    }
+
+    // 리뷰 도움이 안돼요
+    public void postMenuLike(int reviewIdx, int userIdx){
+        String postMenuHateQuery = "insert into UserMenuLike (reviewIdx, userIdx) VALUES (?,?)";
+        Object[] postLikePostParams = new Object[]{reviewIdx, userIdx};
+        this.jdbcTemplate.update(postMenuHateQuery, postLikePostParams);
+    }
 }

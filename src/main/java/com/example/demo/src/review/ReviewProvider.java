@@ -37,4 +37,14 @@ public class ReviewProvider {
         List<GetReviewRes> getReviewRes = reviewDao.getReviewRes(restaurantIdx);
         return getReviewRes;
     }
+
+
+    public List<GetAllReviewRes> getAllReviewRes(){
+        List<GetAllReviewRes> getAllReviewRes = reviewDao.getAllReviewRes();
+        return getAllReviewRes;
+    }
+    public GetOneReviewRes getOneReviewRes(int orderIdx){
+        GetOneReviewRes getOneReviewRes = reviewDao.getOneReviewRes(orderIdx);
+        return getOneReviewRes;
+    }
 }

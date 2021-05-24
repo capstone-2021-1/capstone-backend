@@ -99,10 +99,21 @@ public class ReviewController {
         }
     }
 
-    @GetMapping("/{restaurantIdx}")
+    @GetMapping("/restaurants/{restaurantIdx}")
     public BaseResponse<List<GetReviewRes>> getReview(@PathVariable("restaurantIdx") int restaurantIdx){
         List<GetReviewRes> getReviewRes = reviewProvider.getReviewRes(restaurantIdx);
         return new BaseResponse<>(getReviewRes);
     }
 
+    @GetMapping("")
+    public BaseResponse<List<GetAllReviewRes>> getAllReview(){
+        List<GetAllReviewRes> getAllReviewRes = reviewProvider.getAllReviewRes();
+        return new BaseResponse<>(getAllReviewRes);
+    }
+
+    @GetMapping("/{orderIdx}")
+    public BaseResponse<GetOneReviewRes> getOneReview(@PathVariable("orderIdx") int orderIdx){
+        GetOneReviewRes getOneReviewRes = reviewProvider.getOneReviewRes(orderIdx);
+        return new BaseResponse<>(getOneReviewRes);
+    }
 }

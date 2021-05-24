@@ -11,8 +11,11 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 
-public class GetReviewRes {
+public class GetOneReviewRes {
     private int reviewIdx;
+    private int restaurantIdx;
+    private int userIdx;
+    private String userName;
     private String images;
     private String content;
     private int score;
